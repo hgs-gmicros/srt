@@ -559,7 +559,11 @@ endif()
 # so consider adding at least one real source file to any target that references $<TARGET_OBJECTS:objlib>.
 set(OBJECT_LIB_SUPPORT "${PROJECT_SOURCE_DIR}/cmake_object_lib_support.c")
 
-add_library(haicrypt_virtual OBJECT ${SOURCES_haicrypt} ${SOURCES_common})
+if (ENABLE_ENCRYPTION)
+	add_library(haicrypt_virtual OBJECT ${SOURCES_haicrypt} ${SOURCES_common})
+else()
+	add_library(haicrypt_virtual OBJECT haicrypt/haicrypt.h)
+endif()
 
 # NOTE: The "virtual library" is a library specification that cmake
 # doesn't support (the library of OBJECT type is something in kind of that,
